@@ -20,7 +20,11 @@ class Game:
 
     def progress(self):
         while not self.over:
-            i = 10
+            if (self.turn == 1):
+                players[0].possibleMovements(self.board, players[1].id)
+                self.turn = 2
+            else:
+                self.turn = 1
 
     
 

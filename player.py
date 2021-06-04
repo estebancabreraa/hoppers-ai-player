@@ -76,7 +76,12 @@ class Player:
                                     print('Posicion no valida')
         return moves    
 
-matriz = [[1,1,1,1,1,0,0,0,0,0],
+#def eval(self, board):
+
+
+
+
+'''matriz = [[1,1,1,1,1,0,0,0,0,0],
           [1,1,1,1,0,2,0,0,0,0],
           [1,1,1,0,0,0,0,0,0,0],
           [1,1,0,0,0,0,0,0,0,0],
@@ -90,5 +95,5 @@ matriz = [[1,1,1,1,1,0,0,0,0,0],
 player1 = Player(1, True)
 
 for move in player1.possibleMovements(matriz, 2):
-    print(move)
+    print(move)'''
 
