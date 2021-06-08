@@ -1,11 +1,28 @@
+from mcts import *
+
 class Player:
 
     def __init__(self, id, minimax):
         self.id = id
         self.minimax = minimax
+        self.mcts = MCTS()
 
-    def movement(self):
-        i = 10 #later
+    def movement(self, board):
+        if self.id == 1:
+            otherPlayerId = 2
+        else:
+            otherPlayerId = 1
+        move = self.mcts.nextMovement(matriz, self, otherPlayerId, False)
+        x1 = move['fromX']
+        y1 = move['fromY']
+        x2 = move['toX']
+        y2 = move['toY']
+
+        board[x1][y2] = 0
+        board[x2][y2] = self.id 
+        
+        return board
+
 
     def possibleMovements(self, board, otherPlayerId):
         moves = []
@@ -22,7 +39,7 @@ class Player:
                                                     "fromY": y,
                                                     "toX": i,
                                                     "toY": o,
-                                                    "typeOfMove": 0})
+                                                    "score": 0})
                                     '''if (value == otherPlayerId):
                                         if (board[i][o - 1] == 0) and (o - 1 >= 0): #UP
                                             moves.append({"fromX": x, 
@@ -76,13 +93,34 @@ class Player:
                                     print('Posicion no valida')
         return moves    
 
-#def eval(self, board):
+    def gameOverCheck(self, board):
+        isZero = False
+
+        count1 = 0
+        count2 = 0
+
+        counter = 1
+        line = ""
+        for i in range (len(board) - counter, len(board)):
+            for o in range(len(board) - counter, len(board)):
+                line = line + str(board[i][o])
+                if (board[i][o] == 1):
+                    count1 = count1 + 1
+                elif (board[i][o] == 2):
+                    count2 = count2 + 1
+                else:
+                    isZero = True
+            print(line)
+            line = ""
+            counter = counter + 1
+        if (count1 < count2) and not isZero:
+            return True
+        else:
+            return False       
 
 
-
-
-'''matriz = [[1,1,1,1,1,0,0,0,0,0],
-          [1,1,1,1,0,2,0,0,0,0],
+matriz = [[1,1,1,1,1,0,0,0,0,0],
+          [1,1,1,1,0,0,0,0,0,0],
           [1,1,1,0,0,0,0,0,0,0],
           [1,1,0,0,0,0,0,0,0,0],
           [1,0,0,0,0,0,0,0,0,0],
@@ -92,8 +130,4 @@ class Player:
           [0,0,0,0,0,0,2,2,2,2],
           [0,0,0,0,0,2,2,2,2,2]]
 
-player1 = Player(1, True)
-
-for move in player1.possibleMovements(matriz, 2):
-    print(move)'''
 
